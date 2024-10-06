@@ -1,0 +1,31 @@
+Aplicacion web: Compra de comida 
+
+Sistema de venta de comida online, de un negocio en especifico V.0.0.1
+
+Funcionalidades: 
+-Crear Usuario (opcional)
+-Registrar datos(nombre,localidad,telefono,celular,idusuario)
+-Eliminar usuario(nombre,localidad,telefono,celular,idusuario,motivo)
+-Crear pedido(refrescos,pollo, porciones,salsas,idusuario,idpedido)
+-Editar pedido(regrescos,pollos,porciones,salsas,idsuario,idpedido)
+-Pago pedido(idpedido,metodo,monto)
+-servicio al cliente(idusuario,idempleado,motivo)
+-reclamos(motivo,idusuario)
+
+
+Usuarios	Pedidos		Menus
+Create 		Create 		Create 
+Read		  Read		  Read
+Update		Update		Update
+Delete		Delete		Delete
+List		  List		  List
+Image		  Image		  Image
+
+///
+GET / Usuarios/{id}
+
+request y response
+swagger para documentar apis, con las buenas recomendaciones rest
+///
+
+
