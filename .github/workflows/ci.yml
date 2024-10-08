@@ -1,0 +1,44 @@
+# Nombre del pipeline de CI
+name: CI Pipeline
+
+# En qué eventos debe ejecutarse el pipeline
+on:
+  push:          # Cuando haces un push de cambios
+    branches:
+      - main     # Solo en la rama 'main'
+  pull_request:  # También cuando alguien haga un pull request
+    branches:
+      - main     # Solo en la rama 'main'
+
+# Definición de los trabajos (jobs)
+jobs:
+  # Nombre del job: Build
+  build:
+    runs-on: ubuntu-latest   # Corre sobre una máquina virtual de Ubuntu
+
+    # Definir los pasos a seguir en este job
+    steps:
+    - name: Check out the code          # Paso 1: Descargar el código
+      uses: actions/checkout@v3         # Usamos una acción que proporciona GitHub para descargar el código fuente
+
+    - name: Set up Node.js              # Paso 2: Configurar Node.js en la máquina
+      uses: actions/setup-node@v3       # Usamos otra acción de GitHub para configurar Node.js
+      with:
+        node-version: '18'              # Especificamos la versión de Node.js (en este caso la 18)
+
+    - name: Install dependencies        # Paso 3: Instalar dependencias
+      run: npm install                  # Ejecutamos 'npm install' para instalar las dependencias de tu proyecto
+
+    - name: Run unit tests              # Paso 4: Ejecutar pruebas unitarias
+      run: npm test                     # Se ejecutan los tests definidos en tu proyecto (debes tener un script 'test' en tu 'package.json')
+
+    - name: Build Docker image          # Paso 5: Construir la imagen Docker
+      run: |
+        docker build -t wingz:ci .      # Ejecutamos 'docker build' para crear una imagen de tu aplicación
+
+    - name: Login to Docker Hub         # Paso 6: Iniciar sesión en Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      # Aquí usamos tus credenciales almacenadas en los secrets de GitHub para loguearnos en Docker Hub
+
+    - name: Push Docker image to Docker Hub  # Paso 7: Subir la imagen a Docker Hub
+      run: docker push diegom648/wingz:ci    # Subimos la imagen con la etiqueta 'ci' a tu cuenta de Docker Hub
