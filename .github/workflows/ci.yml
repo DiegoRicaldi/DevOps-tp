@@ -27,14 +27,18 @@ jobs:
         node-version: '18'              # Especificamos la versión de Node.js (en este caso la 18)
 
     - name: Install dependencies        # Paso 3: Instalar dependencias
-      run: npm install                  # Ejecutamos 'npm install' para instalar las dependencias de tu proyecto
+      run: |
+          npm install
+          npm install -g jest  # Instalar Jest globalmente               
 
     - name: Run unit tests              # Paso 4: Ejecutar pruebas unitarias
-      run: npm test                     # Se ejecutan los tests definidos en tu proyecto (debes tener un script 'test' en tu 'package.json')
+      run: |
+            chmod +x ./node_modules/.bin/jest   
+            npm test                         
 
     - name: Build Docker image          # Paso 5: Construir la imagen Docker
       run: |
-        docker build -t wingz:ci .      # Ejecutamos 'docker build' para crear una imagen de tu aplicación
+        docker build -t wingz:ci .     
 
     - name: Login to Docker Hub         # Paso 6: Iniciar sesión en Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
