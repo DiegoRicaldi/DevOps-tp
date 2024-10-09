@@ -36,7 +36,7 @@ jobs:
 
     - name: Build Docker image          # Paso 5: Construir la imagen Docker
       run: |
-        docker build -t wingz:ci .     
+        docker build -t diegom648/wingz:ci .  
 
     - name: Login to Docker Hub         # Paso 6: Iniciar sesión en Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
