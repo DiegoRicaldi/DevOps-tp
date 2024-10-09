@@ -46,4 +46,4 @@ jobs:
 
     - name: Push Docker image to Docker Hub  # Paso 7: Subir la imagen a Docker Hub
       run: docker push diegom648/wingz:ci    # Subimos la imagen con la etiqueta 'ci' a tu cuenta de Docker Hub
-      #funciona porfissss
+      #funciona porfissssS
