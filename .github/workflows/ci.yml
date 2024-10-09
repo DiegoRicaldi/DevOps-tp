@@ -46,7 +46,7 @@ jobs:
 
     - name: Push Docker image to Docker Hub 
       run: docker push diegom648/wingz:ci   
-    
+    #deploy automatico en render
     - name: Deploy to Render
       run: |
         curl -X POST \
